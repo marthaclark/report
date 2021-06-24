@@ -1,0 +1,69 @@
+---
+title: "My silly report"
+author: "Martha Clark"
+date: "6/24/2021"
+output: html_document
+bibliography: bibliography.bib
+---
+
+```{r, include=FALSE, echo = TRUE, eval = TRUE}
+# Basic knitr options
+library(knitr)
+opts_chunk$set(comment = NA, 
+               echo = FALSE, 
+               warning = FALSE, 
+               message = FALSE, 
+               error = TRUE)
+```
+
+
+```{r}
+library(dplyr)
+smoke <- c(TRUE, TRUE, TRUE, TRUE, TRUE, 
+           TRUE, FALSE, TRUE, FALSE, FALSE, 
+           FALSE, FALSE, FALSE, FALSE, FALSE, 
+           FALSE, FALSE, TRUE, TRUE)
+age <- c(35, 21, 20, 48, 20, 
+         20, 22, 19, 19, 20, 
+         19, 18, 24, 22, 22, 
+         19, 21, 19, 21)
+people <- data.frame(smoke, age)
+people <- people %>%
+  filter(age <= 34)
+
+obs <- nrow(people)
+```
+
+# Introduction 
+
+## Background
+
+### Smoking: is it good for you?
+
+Everyone knows that smoking is bad for you and math is easy [@Rudd2014].
+Doctors shouldn't drink [@Peterman2005].
+
+#### How many people smoke?
+
+Lots
+
+# Methods
+
+My esteemed colleagues and I surveyed `r obs` people. The average age of them was `r round(mean(people$age))` years. That is very _young_. **RIGHT**
+
+# **Results**
+The below chart shows the age of participants.
+
+```{r}
+library(ggplot2)
+ggplot(data = people,
+       aes(x = age,
+           y = smoke)) +
+  geom_boxplot(fill = 'blue') 
+```
+
+# Conclusion
+
+Some have smoked
+
+# Bibliography
